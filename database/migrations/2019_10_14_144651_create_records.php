@@ -25,10 +25,10 @@ class CreateRecords extends Migration
             $table->string('address');
             $table->string('street');
             $table->integer('barangay');
-            $table->string('profile_pic');
-            $table->string('phone_num', 50)->default(null);
-            $table->string('tel_num', 50)->default(null);
-            $table->integer('status')->default(1)->comment("1=active;0=inactive");
+            $table->string('profile_pic')->nullable()->default(null);
+            $table->string('phone_num', 50)->nullable()->default(null);
+            $table->string('tel_num', 50)->nullable()->default(null);
+            $table->integer('status')->nullable()->default(1)->comment("1=active;0=inactive");
             $table->timestamps();
         });
     }

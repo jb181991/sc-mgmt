@@ -29,6 +29,9 @@ Route::post('/save-record', 'AdminController@saveRecord');
 Route::post('/admin-get-provinces', 'AdminController@getProvinces');
 Route::post('/admin-get-cities', 'AdminController@getCities');
 Route::post('/admin-del-record', 'AdminController@deleteRecord');
+Route::post('/admin-get-record', 'AdminController@getSpecificRecord');
+Route::get('/admin-edit-record/{id}', 'AdminController@editRecord');
+Route::post('/update-record', 'AdminController@saveRecord');
 
 
 /* DataTables */

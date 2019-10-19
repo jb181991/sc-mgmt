@@ -30,6 +30,18 @@
                 </div>
             </div>
             <div class="box-body">
+                <div class="row">
+                    @if (count($errors) > 0)
+                        <div class="alert alert-danger">
+                            <strong>Whoops!</strong> There were some problems with your input.<br><br>
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                </div>
                 <table class="table table-bordered table-hover datatable" id="records_tbl" width="100%">
                     <thead>
                         <tr>
@@ -48,7 +60,7 @@
         </div>
         <!-- /.box -->
 
-        <!-- Add Division modal -->
+        <!-- Add Record modal -->
         <div class="modal fade" id="modal-station" tabindex="-1" role="dialog">
             <div class="modal-dialog modal-dialog-centered modal-lg">
                 <div class="modal-content">
@@ -73,19 +85,19 @@
                                     <div class="col-md-5">
                                         <div class="form-group">
                                             <label for="">First Name <span style="color:red;">*</span></label>
-                                            <input type="text" name="fname" id="fname" required class="form-control" pattern="[a-zA-Z\s]+" placeholder="Juan">
+                                            <input type="text" name="fname" id="fname" required class="form-control" style="text-transform: capitalize;" pattern="[a-zA-Z\s]+" placeholder="Juan">
                                         </div>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-group">
                                             <label for="">M.I <span style="color:red;">*</span></label>
-                                            <input type="text" name="mname" id="mname" required class="form-control" maxlength="1" placeholder="A" pattern="[a-zA-Z]+">
+                                            <input type="text" name="mname" id="mname" required class="form-control" style="text-transform: capitalize;" maxlength="1" placeholder="A" pattern="[a-zA-Z]+">
                                         </div>
                                     </div>
                                     <div class="col-md-5">
                                         <div class="form-group">
                                             <label for="">Last Name <span style="color:red;">*</span></label>
-                                            <input type="text" name="lname" id="lname" required class="form-control" pattern="[a-zA-Z\s]+" placeholder="Cruz">
+                                            <input type="text" style="text-transform: capitalize;" name="lname" id="lname" required class="form-control" pattern="[a-zA-Z\s]+" placeholder="Cruz">
                                         </div>
                                     </div>
                                 </div>
@@ -130,7 +142,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="">Address <span style="color:red;">*</span></label>
-                                        <input type="text" name="address" id="address" required class="form-control">
+                                        <input type="text" name="address" id="address" style="text-transform: capitalize;" required class="form-control">
                                     </div>
                                 </div>
                             </div>
@@ -149,7 +161,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="">Street</label>
-                                        <input type="text" name="street" id="street" class="form-control">
+                                        <input type="text" name="street" id="street" class="form-control" style="text-transform: capitalize;">
                                     </div>
                                 </div>
                             </div>
@@ -173,27 +185,35 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="">First Name <span style="color:red;">*</span></label>
-                                        <input type="text" name="cp_fname" id="cp_fname" required class="form-control" pattern="[a-zA-Z\s]+">
+                                        <input type="text" name="cp_fname" id="cp_fname" required style="text-transform: capitalize;" class="form-control" pattern="[a-zA-Z\s]+">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="">Middle Name <span style="color:red;">*</span></label>
-                                        <input type="text" name="cp_mname" id="cp_mname" required class="form-control" pattern="[a-zA-Z\s]+">
+                                        <input type="text" name="cp_mname" id="cp_mname" required style="text-transform: capitalize;" class="form-control" pattern="[a-zA-Z\s]+">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="">Last Name <span style="color:red;">*</span></label>
-                                        <input type="text" name="cp_lname" id="cp_lname" required class="form-control" pattern="[a-zA-Z\s]+">
+                                        <input type="text" name="cp_lname" id="cp_lname" required style="text-transform: capitalize;" class="form-control" pattern="[a-zA-Z\s]+">
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="">Address <span style="color:red;">*</span></label>
-                                        <input type="text" name="cp_address" id="cp_address" required class="form-control">
+                                        <label for="">Relationship <span style="color:red;">*</span></label>
+                                        <input type="text" name="relationship" id="relationship" required style="text-transform: capitalize;" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="">Full Address <span style="color:red;">*</span></label>
+                                        <input type="text" name="cp_address" id="cp_address" required style="text-transform: capitalize;" class="form-control">
                                     </div>
                                 </div>
                             </div>
@@ -211,18 +231,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                @if (count($errors) > 0)
-                                    <div class="alert alert-danger">
-                                        <strong>Whoops!</strong> There were some problems with your input.<br><br>
-                                        <ul>
-                                            @foreach ($errors->all() as $error)
-                                                <li>{{ $error }}</li>
-                                            @endforeach
-                                        </ul>
-                                    </div>
-                                @endif
-                            </div>
                         </div>
                         <div class="modal-footer">
                             <span class="pull-left"><i>Note: Fields with (<span style="color:red;">*</span>) is required.</i></span>
@@ -234,7 +242,85 @@
             </div>
             <!-- /.modal-dialog -->
         </div>
-        <!-- /.Add Division modal -->
+        <!-- /.Add Record modal -->
+
+        <!-- View Record modal -->
+        <div class="modal fade" id="view-record" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header bg-primary">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">
+                                Add View Record
+                        </h4>
+                    </div>
+                    <div class="modal-body" style="background-color: #f1f1f1db!important;">
+                        <div class="row">
+                            <div class="col-md-3">
+
+                              <!-- Profile Image -->
+                              <div class="box box-primary">
+                                <div class="box-body box-profile">
+                                  <img class="profile-user-img img-responsive" id="prof_pic" src="" alt="User profile picture">
+
+                                  <h5 class="profile-username text-center" id="profile-username"></h5>
+
+                                  <p class="text-muted text-center" id="idnum"></p>
+
+                                  <ul class="list-group list-group-unbordered">
+                                    <li class="list-group-item">
+                                      <b>Age</b> <a class="pull-right" id="prof-age"></a>
+                                    </li>
+                                    <li class="list-group-item">
+                                      <b>Birthday</b> <a class="pull-right" id="prof-bday"></a>
+                                    </li>
+                                    <li class="list-group-item">
+                                      <b>Gender</b> <a class="pull-right" id="prof-gender"></a>
+                                    </li>
+                                  </ul>
+                                </div>
+                                <!-- /.box-body -->
+                              </div>
+                              <!-- /.box -->
+                            </div>
+
+                            <!-- /.col -->
+                            <div class="col-md-9">
+                              <div class="nav-tabs-custom">
+                                <ul class="nav nav-tabs">
+                                  <li class="active"><a href="#info" data-toggle="tab" aria-expanded="false">Info</a></li>
+                                  <li class=""><a href="#cp" data-toggle="tab" aria-expanded="false">Contact Person</a></li>
+                                  <li class=""><a href="#settings" data-toggle="tab" aria-expanded="false">Settings</a></li>
+                                </ul>
+                                <div class="tab-content">
+                                  <div class="tab-pane active" id="info">
+                                    
+                                  </div>
+                                  <!-- /.tab-pane -->
+                                  <div class="tab-pane" id="cp">
+                                    
+                                  </div>
+                                  <!-- /.tab-pane -->
+
+                                  <div class="tab-pane" id="settings">
+                                    <button class="btn btn-primary"><i class="fa fa-print"></i> | Print ID</button>
+                                  </div>
+                                  <!-- /.tab-pane -->
+                                </div>
+                                <!-- /.tab-content -->
+                              </div>
+                              <!-- /.nav-tabs-custom -->
+                            </div>
+                            <!-- /.col -->
+                          </div>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.View Record modal -->
 
     </section>
     <!-- /.content -->
@@ -245,10 +331,6 @@
     @if (session()->get('message') == 'success')
         <script>
             toastr.success('Successfully Save.', 'Success!');
-        </script>
-    @else
-        <script>
-            toastr.error('Something went wrong.', 'Oops!');
         </script>
     @endif
 @endif
@@ -270,23 +352,26 @@
             fasterPreview( this );
         });
 
+         /* datatable initialization */
         $('#records_tbl').DataTable({
             processing: true,
             serverSide: true,
             ajax: "{{url('/admin-get-records')}}",
             columns: [
-                { data: 'id', name: 'id' },
+                { data: 'unique_id_num', name: 'id' },
                 { data: 'fullname', name: 'name' },
                 { data: 'birthdate', name: 'age' },
                 { data: 'gender', name: 'gender' },
                 { data: 'action', name: 'action', className: 'text-center' }
             ]
-        });
+        }); /* datatable initialization */
 
+         /* datepicker initialization */
         $('#datepicker').datepicker({
             autoclose: true,
-        });
+        }); /* datepicker initialization */
 
+         /* Delete Button */
         $('#records_tbl').on('click', '#btn-del', function(){
             $.ajax({
                 url: "{{ url('/admin-del-record') }}",
@@ -302,7 +387,66 @@
                     }
                 }
             });
-        });
+        }); /* Delete Button */
+
+         /* View Button */
+        $('#records_tbl').on('click', '#btn-view', function(){
+            console.log($(this).attr('data-id'));
+            var url = "{{$base_url}}";
+            if($(this).attr('data-id'))
+            {
+                $.ajax({
+                    url: "{{ url('/admin-get-record') }}",
+                    type: "POST",
+                    data: {'data': $(this).attr('data-id'),'_token': $('meta[name="csrf-token"]').attr('content')},
+                    success: function(items) {
+                        if(items){
+                            var prof_pic = items.user[0].profile_pic;
+                            var cp_name = items.user[0].cp_fname + " " + items.user[0].cp_mname + " " + items.user[0].cp_lname;
+
+                            if(items.user[0].profile_pic != null || items.user[0].profile_pic != "")
+                            {
+                                $("#prof_pic").attr('src', url + '/' + prof_pic);
+                            } else {
+                                $("#prof_pic").attr('src',"{{ asset('public/dist/img/images.jpg') }}");
+                            }
+
+                            $("#idVal").val(items.user[0].id);
+
+                            $("#profile-username").text(capitalized(items.user[0].fname + ' ' + items.user[0].mname + ' ' + items.user[0].lname));
+                            $("#prof-age").text(getAge(items.user[0].birthdate));
+                            $("#prof-bday").text(moment(items.user[0].birthdate).format('MMM DD, YYYY'));
+                            $("#prof-gender").text(items.user[0].gender);
+                            $("#idnum").text(items.user[0].unique_id_num);
+                            $("#info").html('<form class="form-horizontal"> <div class="form-group"> <label for="" class="col-sm-3 control-label">Civil Status</label> <div class="col-sm-9"> <input type="text" class="form-control" readonly="" value="'+ items.user[0].cs +'"> </div> </div> <div class="form-group"> <label for="" class="col-sm-3 control-label">Address</label> <div class="col-sm-9"> <input type="text" class="form-control" readonly="" value="'+ items.user[0].address +'"> </div> </div> <div class="form-group"> <label for="" class="col-sm-3 control-label">Street</label> <div class="col-sm-9"> <input type="text" class="form-control" readonly="" value="'+ items.user[0].street +'"> </div> </div> <div class="form-group"> <label for="" class="col-sm-3 control-label">Barangay</label> <div class="col-sm-9"> <input type="text" class="form-control" readonly="" value="'+ items.user[0].barangays +'"> </div> </div> <div class="form-group"> <label for="" class="col-sm-3 control-label">Phone Number</label> <div class="col-sm-9"> <input type="text" class="form-control" readonly="" value="'+ items.user[0].phone_num +'"> </div> </div> <div class="form-group"> <label for="" class="col-sm-3 control-label">Telephone Number</label> <div class="col-sm-9"> <input type="text" class="form-control" readonly="" value="'+ items.user[0].tel_num +'"> </div> </div> </form>'); $("#view-record").modal('show');
+                            $("#cp").html('<form class="form-horizontal"> <div class="form-group"> <label for="" class="col-sm-3 control-label">Name</label> <div class="col-sm-9"> <input type="text" class="form-control" readonly="" value="'+ cp_name +'"> </div> </div> <div class="form-group"> <label for="" class="col-sm-3 control-label">Relationship</label> <div class="col-sm-9"> <input type="text" class="form-control" readonly="" value="'+ items.user[0].relationship +'"> </div> </div> <div class="form-group"> <label for="" class="col-sm-3 control-label">Address</label> <div class="col-sm-9"> <input type="text" class="form-control" readonly="" value="'+ items.user[0].cp_address +'"> </div> </div> <div class="form-group"> <label for="" class="col-sm-3 control-label">Phone Number</label> <div class="col-sm-9"> <input type="text" class="form-control" readonly="" value="'+ items.user[0].cp_phone_num +'"> </div> </div> <div class="form-group"> <label for="" class="col-sm-3 control-label">Telephone Number</label> <div class="col-sm-9"> <input type="text" class="form-control" readonly="" value="'+ items.user[0].cp_tel_num +'"> </div> </div> </form>'); }
+                    }
+                });
+            }
+        }); /* View Button */
+
+        /* get Age */
+        function getAge(dateString) {
+            var today = new Date();
+            var birthDate = new Date(dateString);
+            var age = today.getFullYear() - birthDate.getFullYear();
+            var m = today.getMonth() - birthDate.getMonth();
+            if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+            }
+            return age;
+        }
+
+        /* To Capitalized string */
+        function capitalized(txt)
+        {
+            var str = txt;
+            str = str.toLowerCase().replace(/\b[a-z]/g, function(letter) {
+                return letter.toUpperCase();
+            });
+
+            return str;
+        }
     });
 </script>
 @endsection

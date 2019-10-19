@@ -625,6 +625,8 @@
 <script src="{{ asset('public/plugins/iCheck/icheck.min.js') }}"></script>
 <!-- Slimscroll -->
 <script src="{{ asset('public/bower_components/jquery-slimscroll/jquery.slimscroll.min.js') }}"></script>
+<!-- ChartJS -->
+<script src="{{ asset('public/bower_components/chart.js/Chart.js') }}"></script>
 <!-- FastClick -->
 <script src="{{ asset('public/bower_components/fastclick/lib/fastclick.js') }}"></script>
 <!-- AdminLTE App -->

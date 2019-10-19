@@ -12,7 +12,10 @@ class ContactPerson extends Model
         'cp_lname',
         'cp_mname',
         'cp_address',
+        'relationship',
         'cp_phone_num',
         'cp_tel_num',
     ];
+
+    protected $table = 'contact_person';
 }
