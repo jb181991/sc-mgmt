@@ -18,6 +18,7 @@ class CreateRecords extends Migration
             $table->string('fname');
             $table->string('lname');
             $table->string('mname');
+            $table->string('ename');
             $table->string('gender', 10);
             $table->date('birthdate');
             $table->integer('civil_status');
