@@ -45,7 +45,7 @@
                 <table class="table table-bordered table-hover datatable" id="users_tbl" width="100%">
                     <thead>
                         <tr>
-                            <th>ID</th>
+                            <th>Barangay</th>
                             <th>Name</th>
                             <th>Email</th>
                             <th>Created At</th>
@@ -54,20 +54,21 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {{-- @if (isset($data))
+                        @if (isset($data))
                         @foreach ($data as $item)
                         <tr>
-                            <td>{{ $item->unique_id_num }}</td>
-                            <td>{{ $item->full_name }}</td>
-                            <td class="text-right">&#8369; {{ number_format($item->pension_amount, 2) }}</td>
+                            <td>{{ $item->brgy }}</td>
+                            <td>{{ $item->name }}</td>
+                            <td>{{ $item->email }}</td>
                             <td>{{ date('m/d/Y h:i a', strtotime($item->created_at)) }}</td>
                             <td>{{ date('m/d/Y h:i a', strtotime($item->updated_at)) }}</td>
                             <td>
                                 <a href="javascript:void(0);" id="btn-edit" data-id="{{ $item->id }}" class="btn btn-xs btn-success"><i class="fa fa-pencil"></i> </a>&nbsp;<a href="javascript:void(0);" id="btn-del" data-id="{{ $item->id }}" class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-trash"></i> </a>
+                                <a href="javascript:void(0);" id="btn-change" data-id="{{ $item->id }}" class="btn btn-xs btn-warning"><i class="fa fa-key"></i> </a>
                             </td>
                         </tr>
-                        @endforeach --}}
-                        {{-- @endif --}}
+                        @endforeach
+                        @endif
                     </tbody>
                 </table>
             </div>

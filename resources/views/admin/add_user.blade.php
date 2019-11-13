@@ -30,59 +30,127 @@
                     </button>
                 </div>
             </div>
-            <div class="box-body">
-                <div class="row">
-                    @if (count($errors) > 0)
-                        <div class="alert alert-danger">
-                            <strong>Whoops!</strong> There were some problems with your input.<br><br>
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
-                </div>
+            <form action="{{ url('/save-user') }}" enctype="multipart/form-data" method="POST">
+                @csrf
+                <div class="box-body">
+                    <div class="row">
+                        @if (count($errors) > 0)
+                            <div class="alert alert-danger">
+                                <strong>Whoops!</strong> There were some problems with your input.<br><br>
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+                    </div>
 
-                <div class="col-md-12">
-                    <div class="col-md-2 text-center">
-                        <div class="effect7" id="profile-container" style="width:200px;height:200px;">
-                            <img id="profileImage" src="{{ asset('public/dist/img/images.png') }}" style="width:200px;height:200px;" />
-                        </div>
-                        <input id="imageUpload" type="file" name="profile_photo" placeholder="Photo" required="" capture style="display:none;">
-                    </div>
-                    <div class="col-md-10">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="">Name <span style="color:red;">*</span></label>
-                                <input type="text" name="fname" id="fname" required class="form-control" style="text-transform: capitalize;" placeholder="Juan">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-2 text-center">
+                                <div class="effect7" id="profile-container" style="width:200px;height:200px;">
+                                    <img id="profileImage" src="{{ asset('public/dist/img/images.png') }}" style="width:200px;height:200px;" />
+                                </div>
+                                <input id="imageUpload" type="file" name="profile_photo" placeholder="Photo" capture style="display:none;">
+                            </div>
+                            <div class="col-md-10">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="">Name <span style="color:red;">*</span></label>
+                                        <input type="text" name="name" id="name" required class="form-control" style="text-transform: capitalize;" placeholder="Juan De La Cruz">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="">Email <span style="color:red;">*</span></label>
+                                        <input type="email" name="email" id="email" required class="form-control" placeholder="test@email.com">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-10">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Birthdate <span style="color:red;">*</span></label>
+                                        <div class="input-group date">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                            <input type="text" class="form-control pull-right" name="birthdate" id="datepicker">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Civil Status <span style="color:red;">*</span></label>
+                                        <select name="civil_status" id="civil_status" class="form-control select2"  style="width: 100%;">
+                                            <option selected disabled>Select Status</option>
+                                            @foreach ($civil_status as $item)
+                                                <option value="<?= $item->id ?>"><?= $item->name ?></option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="">Gender <span style="color:red;">*</span></label>
+                                        <div class="row col-md-offset-1">
+                                            <input type="radio" name="gender" value="Male" class="minimal">
+                                            <i class="fa fa-male"></i> | Male
+                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <input type="radio" name="gender" value="Female" class="minimal">
+                                            <i class="fa fa-female"></i> | Female
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="">Email <span style="color:red;">*</span></label>
-                                <input type="email" name="mname" id="mname" required class="form-control" style="text-transform: capitalize;" placeholder="De La">
+                        <div class="col-md-12">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="">Address</label>
+                                    <input type="text" name="address" id="address" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="">Street</label>
+                                    <input type="text" name="street" id="street" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="">Barangay</label>
+                                    <select name="brgy" id="brgy" class="form-control select2" style="width: 100%;">
+                                            <option selected disabled>Select Barangay</option>
+                                            @foreach ($barangays as $item)
+                                                <option value="<?= $item->id ?>"><?= $item->name ?></option>
+                                            @endforeach
+                                        </select>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="">Password <span style="color:red;">*</span></label>
-                                <input type="text" style="text-transform: capitalize;" name="lname" id="lname" required class="form-control" placeholder="Cruz">
+                        <div class="col-md-12">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="">Mobile Number</label>
+                                    <input type="text" name="mobile_num" id="mobile_num" class="form-control" data-inputmask='"mask": "(0999) 999-9999"' data-mask>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="">Confirm Password <span style="color:red;">*</span></label>
-                                <input type="text" style="text-transform: capitalize;" name="ename" id="ename" class="form-control" placeholder="Jr.">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="">Phone Number</label>
+                                    <input type="text" name="phone_num" id="phone_num" class="form-control" data-inputmask='"mask": "(999) 999-9999"' data-mask>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <hr>
-                <h4>Personal Info</h4>
-                
-            </div>
-            <!-- /.box-body -->
+                <!-- /.box-body -->
+                <div class="box-footer text-right">
+                    <span><button type="submit" class="btn btn-primary">Save</button></span>
+                </div>
+            </form>
         </div>
         <!-- /.box -->
 
@@ -100,6 +168,27 @@
 @endif
 <script>
     $(document).ready(function(){
+
+        $("#profileImage").click(function(e) {
+            $("#imageUpload").click();
+        });
+
+        function fasterPreview( uploader ) {
+            if ( uploader.files && uploader.files[0] ){
+                $('#profileImage').attr('src',
+                    window.URL.createObjectURL(uploader.files[0]) );
+            }
+        }
+
+        $("#imageUpload").change(function(){
+            fasterPreview( this );
+        });
+
+        /* datepicker initialization */
+        $('#datepicker').datepicker({
+            autoclose: true,
+        }); /* datepicker initialization */
+
         /* datatable initialization */
         $('#contributions_tbl').DataTable(); /* datatable initialization */
 

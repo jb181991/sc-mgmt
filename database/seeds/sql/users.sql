@@ -1,1 +1,1 @@
-INSERT INTO users VALUES (null, 'Admin', 'admin@gmail.com', '$2y$10$qVLxmd.nwMAbymH7dw4jy.XGgdj./Z7cc2zZqHZKRIa2YEaWUtpvm', 1, 'AkFuva0LW6ZbdI9CNGgYGB35zJYRGAeS4vPs3FgnIgXGzqLaSunPRLdTz3JG', null, null);
+INSERT INTO users VALUES (null, 'Admin', 'admin@gmail.com', '$2y$10$qVLxmd.nwMAbymH7dw4jy.XGgdj./Z7cc2zZqHZKRIa2YEaWUtpvm', 1,1, 'AkFuva0LW6ZbdI9CNGgYGB35zJYRGAeS4vPs3FgnIgXGzqLaSunPRLdTz3JG', null, null);

@@ -18,6 +18,7 @@ use App\CivilStatus;
 use App\Contribution;
 use App\Pension;
 use App\User;
+use App\UserProfile;
 use App;
 
 /* plugin */
@@ -121,7 +122,7 @@ class AdminController extends Controller
         } else {
             if (empty($request->pic)) {
                 $this->validate($request, [
-                    'profile_photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                    'profile_photo' => 'required|image|mimes:jpeg,png,jpg|max:2048',
                 ]);
 
                 if ($request->hasFile('profile_photo')) {
@@ -303,7 +304,12 @@ class AdminController extends Controller
     public function getAdminUsers()
     {
         $data['title'] = "Users";
-        $data['records'] = Records::all();
+        $data['data'] = DB::table('users')
+                ->join('user_profile','users.id','=','user_profile.user_id')
+                ->join('barangays', 'user_profile.user_brgy', '=', 'barangays.id')
+                ->where('users.status', '=', 1)
+                ->selectRaw("users.id,users.name, users.email,users.created_at,users.updated_at,barangays.name as brgy")
+                ->get();
         $data['base_url'] = App::make("url")->to('/');
 
         return view('admin.users', $data);
@@ -428,8 +434,84 @@ class AdminController extends Controller
     public function getAddUser()
     {
         $data['title'] = "Add User";
+        $data['civil_status'] = CivilStatus::all();
+        $data['barangays'] = Barangay::all();
         $data['base_url'] = App::make("url")->to('/');
 
         return view('admin.add_user', $data);
+    }
+
+    public function saveUser(Request $request)
+    {
+        $this->validate($request, [
+            'profile_photo' => 'image|mimes:jpeg,png,jpg|max:2048',
+        ]);
+
+        if ($request->hasFile('profile_photo')) {
+            $image = $request->file('profile_photo');
+            $name = md5(time() . "-" . $request->file('profile_photo')->getClientOriginalName()) . '.' . $image->getClientOriginalExtension();
+            $destinationPath = public_path('/images');
+
+            if (File::isDirectory($destinationPath)) {
+                $image->move($destinationPath, $name);
+            } else {
+                File::makeDirectory($destinationPath);
+                $image->move($destinationPath, $name);
+            }
+        }
+
+        if (!isset($request->id)) {
+
+            $data = array(
+                'name' => ucwords($request->name),
+                'email' => $request->email,
+                'password' => Hash::make('password')
+            );
+
+            $user_id = User::create($data);
+
+            $data_cp = array(
+                'user_id' => $user_id->id,
+                'user_profile_pic' => !empty($name) ? $name : '',
+                'user_birthdate' => date('Y-m-d', strtotime($request->birthdate)),
+                'user_civil_status' => $request->civil_status,
+                'user_gender' => $request->gender,
+                'user_address' => ucwords($request->address),
+                'user_street' => ucwords($request->street),
+                'user_brgy' => ucwords($request->brgy),
+                'user_mobile_num' => $request->mobile_num,
+                'user_phone_num' => $request->phone_num,
+            );
+
+            $resultData = UserProfile::create($data_cp);
+        } else {
+            $data = array(
+                'name' => ucwords($request->name),
+                'email' => $request->email
+            );
+
+            $user_id = User::where('id', '=', $request->id)->update($data);
+
+            $data_cp = array(
+                'user_id' => $user_id->id,
+                'user_profile_pic' => !empty($name) ? $name : '',
+                'user_birthdate' => date('Y-m-d', strtotime($request->birthdate)),
+                'user_civil_status' => $request->civil_status,
+                'user_gender' => $request->gender,
+                'user_address' => ucwords($request->address),
+                'user_street' => ucwords($request->street),
+                'user_brgy' => ucwords($request->brgy),
+                'user_mobile_num' => $request->mobile_num,
+                'user_phone_num' => $request->phone_num,
+            );
+
+            $resultData = UserProfile::where('id', '=', $request->up_id)->update($data_cp);
+        }
+
+        if ($resultData) {
+            return redirect('/admin-users')->with('message', 'success');
+        } else {
+            return redirect('/admin-users')->with('message', 'error');
+        }
     }
 }
