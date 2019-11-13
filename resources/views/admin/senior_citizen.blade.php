@@ -76,28 +76,34 @@
                         <div class="modal-body">
                             <div class="row">
                                 <div class="col-md-3 text-center">
-                                    <div id="profile-container" style="width:200px;height:200px;">
+                                    <div class="effect7" id="profile-container" style="width:200px;height:200px;">
                                         <img id="profileImage" src="{{ asset('public/dist/img/images.png') }}" style="width:200px;height:200px;" />
                                     </div>
                                     <input id="imageUpload" type="file" name="profile_photo" placeholder="Photo" required="" capture style="display:none;">
                                 </div>
                                 <div class="col-md-9">
-                                    <div class="col-md-5">
+                                    <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="">First Name <span style="color:red;">*</span></label>
-                                            <input type="text" name="fname" id="fname" required class="form-control" style="text-transform: capitalize;" pattern="[a-zA-Z\s]+" placeholder="Juan">
+                                            <input type="text" name="fname" id="fname" required class="form-control" style="text-transform: capitalize;" placeholder="Juan">
                                         </div>
                                     </div>
-                                    <div class="col-md-2">
+                                    <div class="col-md-3">
                                         <div class="form-group">
-                                            <label for="">M.I <span style="color:red;">*</span></label>
-                                            <input type="text" name="mname" id="mname" required class="form-control" style="text-transform: capitalize;" maxlength="1" placeholder="A" pattern="[a-zA-Z]+">
+                                            <label for="">Middle Name <span style="color:red;">*</span></label>
+                                            <input type="text" name="mname" id="mname" required class="form-control" style="text-transform: capitalize;" placeholder="De La">
                                         </div>
                                     </div>
-                                    <div class="col-md-5">
+                                    <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="">Last Name <span style="color:red;">*</span></label>
-                                            <input type="text" style="text-transform: capitalize;" name="lname" id="lname" required class="form-control" pattern="[a-zA-Z\s]+" placeholder="Cruz">
+                                            <input type="text" style="text-transform: capitalize;" name="lname" id="lname" required class="form-control" placeholder="Cruz">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="">Ext. Name <span style="color:red;">*</span></label>
+                                            <input type="text" style="text-transform: capitalize;" name="ename" id="ename" class="form-control" placeholder="Jr.">
                                         </div>
                                     </div>
                                 </div>
@@ -182,22 +188,28 @@
                             <hr>
                             <h4><b><i>Contact Person</i></b></h4>
                             <div class="row">
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="">First Name <span style="color:red;">*</span></label>
-                                        <input type="text" name="cp_fname" id="cp_fname" required style="text-transform: capitalize;" class="form-control" pattern="[a-zA-Z\s]+">
+                                        <input type="text" name="cp_fname" id="cp_fname" required style="text-transform: capitalize;" class="form-control">
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="">Middle Name <span style="color:red;">*</span></label>
-                                        <input type="text" name="cp_mname" id="cp_mname" required style="text-transform: capitalize;" class="form-control" pattern="[a-zA-Z\s]+">
+                                        <input type="text" name="cp_mname" id="cp_mname" required style="text-transform: capitalize;" class="form-control">
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="">Last Name <span style="color:red;">*</span></label>
-                                        <input type="text" name="cp_lname" id="cp_lname" required style="text-transform: capitalize;" class="form-control" pattern="[a-zA-Z\s]+">
+                                        <input type="text" name="cp_lname" id="cp_lname" required style="text-transform: capitalize;" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="">Extension Name <span style="color:red;">*</span></label>
+                                        <input type="text" name="cp_ename" id="cp_ename" style="text-transform: capitalize;" class="form-control">
                                     </div>
                                 </div>
                             </div>
@@ -295,11 +307,11 @@
                                 </ul>
                                 <div class="tab-content">
                                   <div class="tab-pane active" id="info">
-                                    
+
                                   </div>
                                   <!-- /.tab-pane -->
                                   <div class="tab-pane" id="cp">
-                                    
+
                                   </div>
                                   <!-- /.tab-pane -->
 

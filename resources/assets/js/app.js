@@ -25,10 +25,6 @@ Vue.use(select2);
  */
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-Vue.component('add-station', require('./components/AddStation.vue').default);
-Vue.component('add-department', require('./components/AddDepartment.vue').default);
-Vue.component('add-designation', require('./components/AddDesignation.vue').default);
-Vue.component('info-form', require('./components/InfoForm.vue').default);
 
 const app = new Vue({
     el: '#app'

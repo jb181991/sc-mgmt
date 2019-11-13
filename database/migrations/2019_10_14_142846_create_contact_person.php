@@ -19,7 +19,7 @@ class CreateContactPerson extends Migration
             $table->string('cp_fname');
             $table->string('cp_lname');
             $table->string('cp_mname');
-            $table->string('cp_ename');
+            $table->string('cp_ename')->nullable()->default(null);
             $table->string('cp_address');
             $table->string('relationship');
             $table->string('cp_phone_num', 50)->nullable()->default(null);

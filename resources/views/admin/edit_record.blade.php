@@ -50,22 +50,28 @@
                             <input id="imageUpload" type="file" name="profile_photo" placeholder="Photo" capture style="display:none;">
                         </div>
                         <div class="col-md-9">
-                            <div class="col-md-5">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="">First Name <span style="color:red;">*</span></label>
-                                    <input type="text" name="fname" id="fname" value="{{ $row->fname }}" required class="form-control" style="text-transform: capitalize;" pattern="[a-zA-Z\s]+" placeholder="Juan">
+                                    <input type="text" name="fname" id="fname" value="{{ $row->fname }}" required class="form-control" style="text-transform: capitalize;"" placeholder="Juan">
                                 </div>
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="">M.I <span style="color:red;">*</span></label>
-                                    <input type="text" name="mname" id="mname" value="{{ $row->mname }}" required class="form-control" style="text-transform: capitalize;" maxlength="1" placeholder="A" pattern="[a-zA-Z]+">
+                                    <input type="text" name="mname" id="mname" value="{{ $row->mname }}" required class="form-control" style="text-transform: capitalize;" placeholder="A">
                                 </div>
                             </div>
-                            <div class="col-md-5">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="">Last Name <span style="color:red;">*</span></label>
-                                    <input type="text" style="text-transform: capitalize;" value="{{ $row->lname }}" name="lname" id="lname" required class="form-control" pattern="[a-zA-Z\s]+" placeholder="Cruz">
+                                    <input type="text" style="text-transform: capitalize;" value="{{ $row->lname }}" name="lname" id="lname" required class="form-control" placeholder="Cruz">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="">Extension Name <span style="color:red;">*</span></label>
+                                    <input type="text" style="text-transform: capitalize;" value="{{ $row->ename }}" name="ename" id="ename" class="form-control" placeholder="Cruz">
                                 </div>
                             </div>
                         </div>
@@ -151,22 +157,28 @@
                     @foreach($contact_person as $cs)
                     <input type="hidden" name="cs_id" value="{{ $cs->id }}">
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label for="">First Name <span style="color:red;">*</span></label>
-                                <input type="text" name="cp_fname" id="cp_fname" value="{{ $cs->cp_fname }}" required style="text-transform: capitalize;" class="form-control" pattern="[a-zA-Z\s]+">
+                                <input type="text" name="cp_fname" id="cp_fname" value="{{ $cs->cp_fname }}" required style="text-transform: capitalize;" class="form-control">
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label for="">Middle Name <span style="color:red;">*</span></label>
-                                <input type="text" name="cp_mname" id="cp_mname" value="{{ $cs->cp_mname }}" required style="text-transform: capitalize;" class="form-control" pattern="[a-zA-Z\s]+">
+                                <input type="text" name="cp_mname" id="cp_mname" value="{{ $cs->cp_mname }}" required style="text-transform: capitalize;" class="form-control">
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label for="">Last Name <span style="color:red;">*</span></label>
-                                <input type="text" name="cp_lname" id="cp_lname" value="{{ $cs->cp_lname }}" required style="text-transform: capitalize;" class="form-control" pattern="[a-zA-Z\s]+">
+                                <input type="text" name="cp_lname" id="cp_lname" value="{{ $cs->cp_lname }}" required style="text-transform: capitalize;" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="">Last Name <span style="color:red;">*</span></label>
+                                <input type="text" name="cp_ename" id="cp_ename" value="{{ $cs->cp_ename }}" style="text-transform: capitalize;" class="form-control">
                             </div>
                         </div>
                     </div>
@@ -218,7 +230,7 @@
 @section('js')
 <script>
     $(document).ready(function(){
-        
+
         $("#profileImage").click(function(e) {
             $("#imageUpload").click();
         });
