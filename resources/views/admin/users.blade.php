@@ -63,8 +63,8 @@
                             <td>{{ date('m/d/Y h:i a', strtotime($item->created_at)) }}</td>
                             <td>{{ date('m/d/Y h:i a', strtotime($item->updated_at)) }}</td>
                             <td>
-                                <a href="javascript:void(0);" id="btn-edit" data-id="{{ $item->id }}" class="btn btn-xs btn-success"><i class="fa fa-pencil"></i> </a>&nbsp;<a href="javascript:void(0);" id="btn-del" data-id="{{ $item->id }}" class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-trash"></i> </a>
-                                <a href="javascript:void(0);" id="btn-change" data-id="{{ $item->id }}" class="btn btn-xs btn-warning"><i class="fa fa-key"></i> </a>
+                                <a href="{{ App::make('url')->to('/admin-edit-user/'.$item->id) }}" id="btn-edit" class="btn btn-xs btn-success"><i class="fa fa-pencil"></i> </a>&nbsp;<a href="javascript:void(0);" id="btn-del" data-id="{{ $item->id }}" class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-trash"></i> </a>
+                                <a href="javascript:void(0);" id="btn-change" data-id="{{ $item->id }}" class="btn btn-xs btn-warning" title="Change Password"><i class="fa fa-key"></i> </a>
                             </td>
                         </tr>
                         @endforeach
@@ -196,23 +196,9 @@
             input[0].setSelectionRange(caret_pos, caret_pos);
         }
 
-        $("#btn-edit").on('click', function() {
-            $.ajax({
-                url: "{{ url('/get-pension-data') }}",
-                type: "POST",
-                data: {'c_id': $(this).attr('data-id'),'_token': $('meta[name="csrf-token"]').attr('content')},
-                success: function(items) {
-                    $("#senior_id").val(items.user[0].senior_id).trigger('change');
-                    $("#contribution").val(items.user[0].pension_amount);
-                    $("#id").val(items.user[0].id);
-                    $("#modal-station").modal('show');
-                }
-            });
-        });
-
         $("#btn-del").on('click', function(){
             Swal.fire({
-                title: 'Are you sure?',
+                title: 'Are you sure to delete this?',
                 text: "You won't be able to revert this!",
                 type: 'warning',
                 showCancelButton: true,
@@ -222,7 +208,7 @@
             }).then((result) => {
                 if (result.value) {
                     $.ajax({
-                        url: "{{ url('/admin-del-pension') }}",
+                        url: "{{ url('/admin-del-user') }}",
                         type: "POST",
                         data: {'data': $(this).attr('data-id'),'_token': $('meta[name="csrf-token"]').attr('content')},
                         success: function(items) {
@@ -235,7 +221,48 @@
                                     showConfirmButton: true,
                                 }).then((result) => {
                                     if(result.value){
-                                        window.location = "{{ $base_url }}" + "/admin-senior-pension";
+                                        window.location = "{{ $base_url }}" + "/admin-users";
+                                    }
+                                });
+                            } else {
+                                Swal.fire(
+                                    'Error!',
+                                    'Oops! Something went wrong',
+                                    'error'
+                                )
+                            }
+                        }
+                    });
+                }
+            });
+        });
+
+        $("#btn-change").on('click', function(){
+            Swal.fire({
+                title: 'Are you sure to change password?',
+                text: "You won't be able to revert this!",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, change it!'
+            }).then((result) => {
+                if (result.value) {
+                    $.ajax({
+                        url: "{{ url('/admin-change-password') }}",
+                        type: "POST",
+                        data: {'data': $(this).attr('data-id'),'_token': $('meta[name="csrf-token"]').attr('content')},
+                        success: function(items) {
+                            if(items.status != 500)
+                            {
+                                Swal.fire({
+                                    title: 'Deleted!',
+                                    text: 'Your file has been deleted.',
+                                    type: 'success',
+                                    showConfirmButton: true,
+                                }).then((result) => {
+                                    if(result.value){
+                                        window.location = "{{ $base_url }}" + "/admin-users";
                                     }
                                 });
                             } else {

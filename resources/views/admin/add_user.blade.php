@@ -3,8 +3,8 @@
 @section('main_content')
     <!-- Content Header (Page header) -->
     <section class="content-header">
-        <a href="#" data-toggle="modal" data-target="#modal-station">
-            <button type="button" class="btn btn-success btn-sm">Add Pension</button>
+        <a href="{{ url('/admin-users') }}" data-toggle="modal" data-target="#modal-station">
+            <button type="button" class="btn btn-default btn-sm">Go Back</button>
         </a>
 
         <ol class="breadcrumb">
@@ -45,7 +45,10 @@
                             </div>
                         @endif
                     </div>
-
+                    @if (isset($user))
+                    @foreach ($user as $row => $value)
+                    @endforeach
+                    @endif
                     <div class="row">
                         <div class="col-md-12">
                             <div class="col-md-2 text-center">
@@ -58,13 +61,13 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="">Name <span style="color:red;">*</span></label>
-                                        <input type="text" name="name" id="name" required class="form-control" style="text-transform: capitalize;" placeholder="Juan De La Cruz">
+                                        <input type="text" name="name" id="name" required class="form-control" style="text-transform: capitalize;" placeholder="Juan De La Cruz" value="{{ isset($user) ? $value->name : '' }}">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="">Email <span style="color:red;">*</span></label>
-                                        <input type="email" name="email" id="email" required class="form-control" placeholder="test@email.com">
+                                        <input type="email" name="email" id="email" required class="form-control" placeholder="test@email.com" value="{{ isset($user) ? $value->email : '' }}">
                                     </div>
                                 </div>
                             </div>
@@ -76,7 +79,7 @@
                                             <div class="input-group-addon">
                                                 <i class="fa fa-calendar"></i>
                                             </div>
-                                            <input type="text" class="form-control pull-right" name="birthdate" id="datepicker">
+                                            <input type="text" class="form-control pull-right" name="birthdate" id="datepicker" value="{{ isset($user) ? $value->user_birthdate : '' }}">
                                         </div>
                                     </div>
                                 </div>
@@ -86,7 +89,7 @@
                                         <select name="civil_status" id="civil_status" class="form-control select2"  style="width: 100%;">
                                             <option selected disabled>Select Status</option>
                                             @foreach ($civil_status as $item)
-                                                <option value="<?= $item->id ?>"><?= $item->name ?></option>
+                                                <option value="<?= $item->id ?>" {{ isset($user) && $value->user_civil_status == $item->id ? 'selected' : '' }}><?= $item->name ?></option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -95,10 +98,10 @@
                                     <div class="form-group">
                                         <label for="">Gender <span style="color:red;">*</span></label>
                                         <div class="row col-md-offset-1">
-                                            <input type="radio" name="gender" value="Male" class="minimal">
+                                            <input type="radio" name="gender" value="Male" class="minimal" checked="{{ isset($user) && $value->user_gender == 'Male' ? 'true' : 'false' }}">
                                             <i class="fa fa-male"></i> | Male
                                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                            <input type="radio" name="gender" value="Female" class="minimal">
+                                            <input type="radio" name="gender" value="Female" class="minimal" checked="{{ isset($user) && $value->user_gender == 'Female' ? 'true' : 'false' }}">
                                             <i class="fa fa-female"></i> | Female
                                         </div>
                                     </div>
@@ -109,7 +112,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="">Address</label>
-                                    <input type="text" name="address" id="address" class="form-control">
+                                    <input type="text" name="address" id="address" class="form-control" value="{{ isset($user) ? $value->user_address }}">
                                 </div>
                             </div>
                             <div class="col-md-4">

@@ -41,8 +41,11 @@ Route::post('/get-contribution-data', 'AdminController@getContributionData');
 Route::post('/get-pension-data', 'AdminController@getPensionData');
 Route::post('/admin-del-contribution', 'AdminController@deleteContribution');
 Route::post('/admin-del-pension', 'AdminController@deletePension');
+Route::post('/admin-del-user', 'AdminController@deleteUser');
 Route::get('/admin-add-user', 'AdminController@getAddUser');
 Route::post('/save-user', 'AdminController@saveUser');
+Route::post('/admin-change-password', 'AdminController@changePassword');
+Route::get('/admin-edit-user/{id}', 'AdminController@editUser');
 
 /* DataTables */
 Route::get('/admin-get-records', 'AdminController@getRecordsData');

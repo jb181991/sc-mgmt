@@ -305,11 +305,11 @@ class AdminController extends Controller
     {
         $data['title'] = "Users";
         $data['data'] = DB::table('users')
-                ->join('user_profile','users.id','=','user_profile.user_id')
-                ->join('barangays', 'user_profile.user_brgy', '=', 'barangays.id')
-                ->where('users.status', '=', 1)
-                ->selectRaw("users.id,users.name, users.email,users.created_at,users.updated_at,barangays.name as brgy")
-                ->get();
+            ->join('user_profile', 'users.id', '=', 'user_profile.user_id')
+            ->join('barangays', 'user_profile.user_brgy', '=', 'barangays.id')
+            ->where('users.status', '=', 1)
+            ->selectRaw("users.id,users.name, users.email,users.created_at,users.updated_at,barangays.name as brgy")
+            ->get();
         $data['base_url'] = App::make("url")->to('/');
 
         return view('admin.users', $data);
@@ -513,5 +513,53 @@ class AdminController extends Controller
         } else {
             return redirect('/admin-users')->with('message', 'error');
         }
+    }
+
+    public function changePassword(Request $request)
+    {
+        $data = User::where('id', '=', $request->data)->update(['password' => Hash::make('password')]);
+
+        if ($data) {
+            return response()->json([
+                'msg'   => "Successfully Changed!",
+                'status' => 200
+            ]);
+        } else {
+            return response()->json([
+                'msg'   => "Oops! Something went wrong.",
+                'status' => 500
+            ]);
+        }
+    }
+
+    public function deleteUser(Request $request)
+    {
+        $data = User::where('id', $request->data)->update(['status' => 0]);
+
+        if ($data) {
+            return response()->json([
+                'msg'   => "Successfully Deleted!",
+                'status' => 200
+            ]);
+        } else {
+            return response()->json([
+                'msg'   => "Oops! Something went wrong.",
+                'status' => 500
+            ]);
+        }
+    }
+
+    public function editUser($id)
+    {
+        $data['title'] = "Edit Record";
+        $data['user'] = DB::table('users')
+            ->join('user_profile', 'users.id', '=', 'user_profile.user_id')
+            ->where('users.id', '=', $id)
+            ->get();
+        $data['barangays'] = Barangay::all();
+        $data['civil_status'] = CivilStatus::all();
+        $data['base_url'] = App::make("url")->to('/');
+
+        return view('admin.add_user', $data);
     }
 }
