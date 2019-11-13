@@ -114,16 +114,26 @@
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="{{ asset('public/dist/img/user2-160x160.jpg') }}" class="user-image" alt="User Image">
-              <span class="hidden-xs">Admin</span>
+                @if (isset($prof_pic[0]->user_profile_pic) && !empty($prof_pic[0]->user_profile_pic))
+                    <img src="{{ $base_url.'/public/images/'.$prof_pic }}" class="user-image" alt="User Image">
+                @else
+                    <img src="{{ asset('public/dist/img/user2-160x160.jpg') }}" class="user-image" alt="User Image">
+                @endif
+
+              <span class="hidden-xs">{{ Auth::user()->name }}</span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="{{ asset('public/dist/img/user2-160x160.jpg') }}" class="img-circle" alt="User Image">
+                @if (isset($prof_pic[0]->user_profile_pic) && !empty($prof_pic[0]->user_profile_pic))
+                    <img src="{{ $base_url.'/public/images/'.$prof_pic }}" class="img-circle" alt="User Image">
+                @else
+                    <img src="{{ asset('public/dist/img/user2-160x160.jpg') }}" class="img-circle" alt="User Image">
+                @endif
+
 
                 <p>
-                  Admin - Web Developer
+                  {{ Auth::user()->name }}
                 </p>
               </li>
               <li class="user-footer">
@@ -156,10 +166,14 @@
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="{{ asset('public/dist/img/user2-160x160.jpg') }}" class="img-circle" alt="User Image">
+            @if (isset($prof_pic[0]->user_profile_pic) && !empty($prof_pic[0]->user_profile_pic))
+                <img src="{{ $base_url.'/public/images/'.$prof_pic }}" class="img-circle" alt="User Image">
+            @else
+                <img src="{{ asset('public/dist/img/user2-160x160.jpg') }}" class="img-circle" alt="User Image">
+            @endif
         </div>
         <div class="pull-left info">
-          <p>Admin</p>
+          <p>{{ Auth::user()->name }}</p>
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
         </div>
       </div>

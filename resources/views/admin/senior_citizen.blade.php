@@ -303,7 +303,6 @@
                                 <ul class="nav nav-tabs">
                                   <li class="active"><a href="#info" data-toggle="tab" aria-expanded="false">Info</a></li>
                                   <li class=""><a href="#cp" data-toggle="tab" aria-expanded="false">Contact Person</a></li>
-                                  <li class=""><a href="#settings" data-toggle="tab" aria-expanded="false">Settings</a></li>
                                 </ul>
                                 <div class="tab-content">
                                   <div class="tab-pane active" id="info">
@@ -314,18 +313,13 @@
 
                                   </div>
                                   <!-- /.tab-pane -->
-
-                                  <div class="tab-pane" id="settings">
-                                    <button class="btn btn-primary"><i class="fa fa-print"></i> | Print ID</button>
-                                  </div>
-                                  <!-- /.tab-pane -->
                                 </div>
                                 <!-- /.tab-content -->
                               </div>
                               <!-- /.nav-tabs-custom -->
                             </div>
                             <!-- /.col -->
-                          </div>
+                        </div>
                     </div>
                 </div>
                 <!-- /.modal-content -->

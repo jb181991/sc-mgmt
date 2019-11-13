@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App;
+use App\UserProfile;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Gate;
@@ -44,6 +47,9 @@ class HomeController extends Controller
                 ->get();
             $data['getMales'] = $getMales[0];
             $data['getFemales'] = $getFemales[0];
+            $data['base_url'] = App::make("url")->to('/');
+            $data['prof_pic'] = UserProfile::where('user_id', Auth::user()->id)->select('user_profile_pic')->pluck('user_profile_pic');
+            dd(UserProfile::where('user_id', Auth::user()->id)->select('user_profile_pic')->pluck('user_profile_pic'));die;
             return view('admin.dashboard', $data);
         } else if (Gate::allows('isAdmin')) {
             $getMales = DB::table('records')
@@ -64,6 +70,8 @@ class HomeController extends Controller
                 ->get();
             $data['getMales'] = $getMales[0];
             $data['getFemales'] = $getFemales[0];
+            $data['base_url'] = App::make("url")->to('/');
+            $data['prof_pic'] = UserProfile::where('user_id', Auth::user()->id)->select('user_profile_pic')->pluck('user_profile_pic');
             return view('admin.dashboard', $data);
         } else {
             abort(404, "Sorry, You can do this actions");

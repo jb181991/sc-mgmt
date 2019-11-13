@@ -3,7 +3,7 @@
 @section('main_content')
     <!-- Content Header (Page header) -->
     <section class="content-header">
-        <a href="{{ url('/admin-users') }}" data-toggle="modal" data-target="#modal-station">
+        <a href="{{ url('/admin-users') }}">
             <button type="button" class="btn btn-default btn-sm">Go Back</button>
         </a>
 
@@ -49,11 +49,17 @@
                     @foreach ($user as $row => $value)
                     @endforeach
                     @endif
+                    <input type="hidden" name="up_id" id="up_id" value="{{ isset($user) ? $value->id : '' }}">
+                    <input type="hidden" name="id" id="id" value="{{ isset($user) ? $value->user_id : '' }}">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="col-md-2 text-center">
                                 <div class="effect7" id="profile-container" style="width:200px;height:200px;">
+                                    @if($value->user_profile_pic != null || $value->user_profile_pic != "")
+                                    <img id="profileImage" src="{{ $base_url.'/public/images/'.$value->user_profile_pic }}" style="width:200px;height:200px;" />
+                                    @else
                                     <img id="profileImage" src="{{ asset('public/dist/img/images.png') }}" style="width:200px;height:200px;" />
+                                    @endif
                                 </div>
                                 <input id="imageUpload" type="file" name="profile_photo" placeholder="Photo" capture style="display:none;">
                             </div>
@@ -112,13 +118,13 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="">Address</label>
-                                    <input type="text" name="address" id="address" class="form-control" value="{{ isset($user) ? $value->user_address }}">
+                                    <input type="text" name="address" id="address" class="form-control" value="{{ isset($user) ? $value->user_address : '' }}">
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="">Street</label>
-                                    <input type="text" name="street" id="street" class="form-control">
+                                    <input type="text" name="street" id="street" class="form-control" value="{{ isset($user) ? $value->user_street : '' }}">
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -127,7 +133,7 @@
                                     <select name="brgy" id="brgy" class="form-control select2" style="width: 100%;">
                                             <option selected disabled>Select Barangay</option>
                                             @foreach ($barangays as $item)
-                                                <option value="<?= $item->id ?>"><?= $item->name ?></option>
+                                                <option value="<?= $item->id ?>" {{ isset($user) && $value->user_brgy == $item->id ? 'selected' : '' }}><?= $item->name ?></option>
                                             @endforeach
                                         </select>
                                 </div>
@@ -137,13 +143,13 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="">Mobile Number</label>
-                                    <input type="text" name="mobile_num" id="mobile_num" class="form-control" data-inputmask='"mask": "(0999) 999-9999"' data-mask>
+                                    <input type="text" name="mobile_num" id="mobile_num" class="form-control" data-inputmask='"mask": "(0999) 999-9999"' data-mask value="{{ isset($user) ? $value->user_mobile_num : '' }}">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="">Phone Number</label>
-                                    <input type="text" name="phone_num" id="phone_num" class="form-control" data-inputmask='"mask": "(999) 999-9999"' data-mask>
+                                    <input type="text" name="phone_num" id="phone_num" class="form-control" data-inputmask='"mask": "(999) 999-9999"' data-mask value="{{ isset($user) ? $value->user_phone_num : '' }}">
                                 </div>
                             </div>
                         </div>

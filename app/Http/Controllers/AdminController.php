@@ -51,6 +51,24 @@ class AdminController extends Controller
     public function adminProfile()
     {
         $data['title'] = "Admin Profile";
+        $data['base_url'] = App::make("url")->to('/');
+        $data['data'] = DB::table('user_profile')
+                    ->join('civil_status', 'user_profile.user_civil_status', '=', 'civil_status.id')
+                    ->join('barangays', 'user_profile.user_brgy', '=', 'barangays.id')
+                    ->selectRaw('user_profile.id,
+                        user_profile.user_id,
+                        user_profile.user_profile_pic,
+                        user_profile.user_birthdate,
+                        user_profile.user_gender,
+                        user_profile.user_address,
+                        user_profile.user_street,
+                        user_profile.user_mobile_num,
+                        user_profile.user_phone_num,
+                        user_profile.user_civil_status,
+                        user_profile.user_brgy,
+                        barangays.name as brgy,
+                        civil_status.name as civil_status')
+                    ->where('user_id', Auth::user()->id)->get();
 
         return view('admin.profile', $data);
     }
@@ -493,7 +511,7 @@ class AdminController extends Controller
             $user_id = User::where('id', '=', $request->id)->update($data);
 
             $data_cp = array(
-                'user_id' => $user_id->id,
+                'user_id' => $request->up_id,
                 'user_profile_pic' => !empty($name) ? $name : '',
                 'user_birthdate' => date('Y-m-d', strtotime($request->birthdate)),
                 'user_civil_status' => $request->civil_status,
@@ -551,7 +569,7 @@ class AdminController extends Controller
 
     public function editUser($id)
     {
-        $data['title'] = "Edit Record";
+        $data['title'] = "Edit User";
         $data['user'] = DB::table('users')
             ->join('user_profile', 'users.id', '=', 'user_profile.user_id')
             ->where('users.id', '=', $id)
@@ -561,5 +579,29 @@ class AdminController extends Controller
         $data['base_url'] = App::make("url")->to('/');
 
         return view('admin.add_user', $data);
+    }
+
+    public function changeUserPassword(Request $request)
+    {
+        if(Hash::make($request->old_password) == Auth::user()->password)
+        {
+            if($request->new_password == $request->confirm_new_password)
+            {
+                $data = User::where('id', '=', Auth::user()->id)->update([
+                    'email' => $request->email,
+                    'password' => Hash::make($request->new_password)
+                ]);
+
+                if ($data) {
+                    return redirect()->back()->with('message', 'Successfully Save.');
+                } else {
+                    return redirect()->back()->with('message', 'Something went wrong.');
+                }
+            } else {
+                return redirect()->back()->with('message', 'success');
+            }
+        } else {
+            return redirect()->back()->with('message', 'success');
+        }
     }
 }
