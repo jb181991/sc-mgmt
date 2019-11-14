@@ -16,6 +16,7 @@ class CreateBarangay extends Migration
         Schema::create('barangays', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->string('code', 10);
         });
     }
 

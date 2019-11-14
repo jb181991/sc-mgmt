@@ -20,7 +20,6 @@ use App\Pension;
 use App\User;
 use App\UserProfile;
 use App;
-
 /* plugin */
 use Yajra\Datatables\Datatables;
 
@@ -43,7 +42,26 @@ class AdminController extends Controller
      */
     public function index()
     {
+        $getMales = DB::table('records')
+            ->selectRaw("count(case when barangay=1 then 1 end) as Balangobong, count(case when barangay=2 then 1 end) as Bued, count(case when barangay=3 then 1 end) as Bugayong, count(case when barangay=4 then 1 end) as Camangaan, count(case when barangay=5 then 1 end) as Canarvacanan, count(case when barangay=6 then 1 end) as Capas, count(case when barangay=7 then 1 end) as Cili, count(case when barangay=8 then 1 end) as Dumayat, count(case when barangay=9 then 1 end) as Linmansangan, count(case when barangay=10 then 1 end) as Mangcasuy, count(case when barangay=11 then 1 end) as Moreno, count(case when barangay=12 then 1 end) as PasilengNorte, count(case when barangay=13 then 1 end) as PasilengSur, count(case when barangay=14 then 1 end) as Poblacion, count(case when barangay=15 then 1 end) as SanFelipCentral, count(case when barangay=16 then 1 end) as SanFelipSur, count(case when barangay=17 then 1 end) as SanPablo, count(case when barangay=18 then 1 end) as SantaCatalina, count(case when barangay=19 then 1 end) as SantaMariaNorte, count(case when barangay=20 then 1 end) as Santiago, count(case when barangay=21 then 1 end) as SantoNino, count(case when barangay=22 then 1 end) as Sumabnit, count(case when barangay=23 then 1 end) as Tabuyoc, count(case when barangay=24 then 1 end) as Vacante")
+            ->where('gender', '=', "Male")
+            ->get();
+        $getFemales = DB::table('records')
+            ->selectRaw("count(case when barangay=1 then 1 end) as Balangobong, count(case when barangay=2 then 1 end) as Bued, count(case when barangay=3 then 1 end) as Bugayong, count(case when barangay=4 then 1 end) as Camangaan, count(case when barangay=5 then 1 end) as Canarvacanan, count(case when barangay=6 then 1 end) as Capas, count(case when barangay=7 then 1 end) as Cili, count(case when barangay=8 then 1 end) as Dumayat, count(case when barangay=9 then 1 end) as Linmansangan, count(case when barangay=10 then 1 end) as Mangcasuy, count(case when barangay=11 then 1 end) as Moreno, count(case when barangay=12 then 1 end) as PasilengNorte, count(case when barangay=13 then 1 end) as PasilengSur, count(case when barangay=14 then 1 end) as Poblacion, count(case when barangay=15 then 1 end) as SanFelipCentral, count(case when barangay=16 then 1 end) as SanFelipSur, count(case when barangay=17 then 1 end) as SanPablo, count(case when barangay=18 then 1 end) as SantaCatalina, count(case when barangay=19 then 1 end) as SantaMariaNorte, count(case when barangay=20 then 1 end) as Santiago, count(case when barangay=21 then 1 end) as SantoNino, count(case when barangay=22 then 1 end) as Sumabnit, count(case when barangay=23 then 1 end) as Tabuyoc, count(case when barangay=24 then 1 end) as Vacante")
+            ->where('gender', '=', "Female")
+            ->get();
+        $brgy = [];
+        foreach ($getMales[0] as $key => $value) {
+            array_push($brgy, $key);
+        }
         $data['title'] = "Dashboard";
+        $data['reports'] = DB::table('records')
+            ->selectRaw("count(case when gender='Male' then 1 end) as male,count(case when gender='Female' then 1 end) as female")
+            ->get();
+        $data['getMales'] = $getMales[0];
+        $data['getFemales'] = $getFemales[0];
+        $data['base_url'] = App::make("url")->to('/');
+        $data['prof_pic'] = UserProfile::where('user_id', Auth::user()->id)->select('user_profile_pic')->pluck('user_profile_pic');
 
         return view('admin.dashboard', $data);
     }
@@ -53,9 +71,9 @@ class AdminController extends Controller
         $data['title'] = "Admin Profile";
         $data['base_url'] = App::make("url")->to('/');
         $data['data'] = DB::table('user_profile')
-                    ->join('civil_status', 'user_profile.user_civil_status', '=', 'civil_status.id')
-                    ->join('barangays', 'user_profile.user_brgy', '=', 'barangays.id')
-                    ->selectRaw('user_profile.id,
+            ->join('civil_status', 'user_profile.user_civil_status', '=', 'civil_status.id')
+            ->join('barangays', 'user_profile.user_brgy', '=', 'barangays.id')
+            ->selectRaw('user_profile.id,
                         user_profile.user_id,
                         user_profile.user_profile_pic,
                         user_profile.user_birthdate,
@@ -68,7 +86,8 @@ class AdminController extends Controller
                         user_profile.user_brgy,
                         barangays.name as brgy,
                         civil_status.name as civil_status')
-                    ->where('user_id', Auth::user()->id)->get();
+            ->where('user_id', Auth::user()->id)->get();
+        $data['prof_pic'] = UserProfile::where('user_id', Auth::user()->id)->select('user_profile_pic')->pluck('user_profile_pic');
 
         return view('admin.profile', $data);
     }
@@ -79,6 +98,7 @@ class AdminController extends Controller
         $data['barangays'] = Barangay::all();
         $data['civil_status'] = CivilStatus::all();
         $data['base_url'] = App::make("url")->to('/');
+        $data['prof_pic'] = UserProfile::where('user_id', Auth::user()->id)->select('user_profile_pic')->pluck('user_profile_pic');
 
         return view('admin.senior_citizen', $data);
     }
@@ -277,6 +297,7 @@ class AdminController extends Controller
         $data['barangays'] = Barangay::all();
         $data['civil_status'] = CivilStatus::all();
         $data['base_url'] = App::make("url")->to('/');
+        $data['prof_pic'] = UserProfile::where('user_id', Auth::user()->id)->select('user_profile_pic')->pluck('user_profile_pic');
 
         return view('admin.edit_record', $data);
     }
@@ -296,6 +317,7 @@ class AdminController extends Controller
             ->get();
         $data['records'] = Records::all();
         $data['base_url'] = App::make("url")->to('/');
+        $data['prof_pic'] = UserProfile::where('user_id', Auth::user()->id)->select('user_profile_pic')->pluck('user_profile_pic');
 
         return view('admin.contributions', $data);
     }
@@ -315,6 +337,7 @@ class AdminController extends Controller
             ->get();
         $data['records'] = Records::all();
         $data['base_url'] = App::make("url")->to('/');
+        $data['prof_pic'] = UserProfile::where('user_id', Auth::user()->id)->select('user_profile_pic')->pluck('user_profile_pic');
 
         return view('admin.pensions', $data);
     }
@@ -329,6 +352,7 @@ class AdminController extends Controller
             ->selectRaw("users.id,users.name, users.email,users.created_at,users.updated_at,barangays.name as brgy")
             ->get();
         $data['base_url'] = App::make("url")->to('/');
+        $data['prof_pic'] = UserProfile::where('user_id', Auth::user()->id)->select('user_profile_pic')->pluck('user_profile_pic');
 
         return view('admin.users', $data);
     }
@@ -455,6 +479,7 @@ class AdminController extends Controller
         $data['civil_status'] = CivilStatus::all();
         $data['barangays'] = Barangay::all();
         $data['base_url'] = App::make("url")->to('/');
+        $data['prof_pic'] = UserProfile::where('user_id', Auth::user()->id)->select('user_profile_pic')->pluck('user_profile_pic');
 
         return view('admin.add_user', $data);
     }
@@ -577,16 +602,15 @@ class AdminController extends Controller
         $data['barangays'] = Barangay::all();
         $data['civil_status'] = CivilStatus::all();
         $data['base_url'] = App::make("url")->to('/');
+        $data['prof_pic'] = UserProfile::where('user_id', Auth::user()->id)->select('user_profile_pic')->pluck('user_profile_pic');
 
         return view('admin.add_user', $data);
     }
 
     public function changeUserPassword(Request $request)
     {
-        if(Hash::make($request->old_password) == Auth::user()->password)
-        {
-            if($request->new_password == $request->confirm_new_password)
-            {
+        if (Hash::check($request->old_password, Auth::user()->password)) {
+            if (strcmp($request->new_password, $request->confirm_new_password) == 0) {
                 $data = User::where('id', '=', Auth::user()->id)->update([
                     'email' => $request->email,
                     'password' => Hash::make($request->new_password)
@@ -598,10 +622,10 @@ class AdminController extends Controller
                     return redirect()->back()->with('message', 'Something went wrong.');
                 }
             } else {
-                return redirect()->back()->with('message', 'success');
+                return redirect()->back()->with('message', 'Password and Confirm password did not match!');
             }
         } else {
-            return redirect()->back()->with('message', 'success');
+            return redirect()->back()->with('message', 'Please enter the correct old password');
         }
     }
 }

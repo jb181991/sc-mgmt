@@ -94,7 +94,10 @@
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper" id="app">
-
+    @if (isset($prof_pic))
+    @foreach ($prof_pic as $item => $value)
+    @endforeach
+    @endif
   <header class="main-header">
     <!-- Logo -->
     <a href="{{ url('/home') }}" class="logo">
@@ -114,10 +117,10 @@
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                @if (isset($prof_pic[0]->user_profile_pic) && !empty($prof_pic[0]->user_profile_pic))
-                    <img src="{{ $base_url.'/public/images/'.$prof_pic }}" class="user-image" alt="User Image">
+                @if (isset($prof_pic[0]) && !empty($prof_pic[0]))
+                    <img src="{{ $base_url.'/public/images/'.$value }}" class="user-image" alt="User Image">
                 @else
-                    <img src="{{ asset('public/dist/img/user2-160x160.jpg') }}" class="user-image" alt="User Image">
+                    <img src="{{ asset('public/dist/img/images.jpg') }}" class="user-image" alt="User Image">
                 @endif
 
               <span class="hidden-xs">{{ Auth::user()->name }}</span>
@@ -125,10 +128,10 @@
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                @if (isset($prof_pic[0]->user_profile_pic) && !empty($prof_pic[0]->user_profile_pic))
-                    <img src="{{ $base_url.'/public/images/'.$prof_pic }}" class="img-circle" alt="User Image">
+                @if (isset($prof_pic[0]) && !empty($prof_pic[0]))
+                    <img src="{{ $base_url.'/public/images/'.$value }}" class="img-circle" alt="User Image">
                 @else
-                    <img src="{{ asset('public/dist/img/user2-160x160.jpg') }}" class="img-circle" alt="User Image">
+                    <img src="{{ asset('public/dist/img/images.jpg') }}" class="img-circle" alt="User Image">
                 @endif
 
 
@@ -166,10 +169,10 @@
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-            @if (isset($prof_pic[0]->user_profile_pic) && !empty($prof_pic[0]->user_profile_pic))
-                <img src="{{ $base_url.'/public/images/'.$prof_pic }}" class="img-circle" alt="User Image">
+            @if (isset($prof_pic[0]) && !empty($prof_pic[0]))
+                <img src="{{ $base_url.'/public/images/'.$value }}" class="img-circle" alt="User Image">
             @else
-                <img src="{{ asset('public/dist/img/user2-160x160.jpg') }}" class="img-circle" alt="User Image">
+                <img src="{{ asset('public/dist/img/images.jpg') }}" class="img-circle" alt="User Image">
             @endif
         </div>
         <div class="pull-left info">

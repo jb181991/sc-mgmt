@@ -25,7 +25,7 @@
                 <!-- Profile Image -->
                 <div class="box box-primary">
                 <div class="box-body box-profile">
-                    @if(isset($data) && $value->user_profile_pic != null)
+                    @if(isset($value) && $value->user_profile_pic != null)
                     <img src="{{ $base_url.'/public/images/'.$value->user_profile_pic }}" class="profile-user-img img-responsive" id="prof_pic" src="" alt="User profile picture" style="width:200px;height:200px;"/>
                     @else
                     <img src="{{ asset('public/dist/img/images.png') }}" class="profile-user-img img-responsive" id="prof_pic" src="" alt="User profile picture" style="width:200px;height:200px;"/>
@@ -35,13 +35,13 @@
 
                     <ul class="list-group list-group-unbordered">
                     <li class="list-group-item">
-                        <b>Age</b> <a class="pull-right" id="prof-age">{{ isset($data) ? date_diff(date_create($value->user_birthdate), date_create('now'))->y.' years old' : '' }}</a>
+                        <b>Age</b> <a class="pull-right" id="prof-age">{{ isset($value) ? date_diff(date_create($value->user_birthdate), date_create('now'))->y.' years old' : '' }}</a>
                     </li>
                     <li class="list-group-item">
-                        <b>Birthday</b> <a class="pull-right" id="prof-bday">{{ isset($data) ? $value->user_birthdate : '' }}</a>
+                        <b>Birthday</b> <a class="pull-right" id="prof-bday">{{ isset($value) ? $value->user_birthdate : '' }}</a>
                     </li>
                     <li class="list-group-item">
-                        <b>Gender</b> <a class="pull-right" id="prof-gender">{{ isset($data) ? $value->user_gender : '' }}</a>
+                        <b>Gender</b> <a class="pull-right" id="prof-gender">{{ isset($value) ? $value->user_gender : '' }}</a>
                     </li>
                     </ul>
                 </div>
@@ -63,37 +63,37 @@
                             <div class="form-group">
                                 <label for="" class="col-sm-3 control-label">Civil Status</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" readonly="" value="{{ isset($data) ? $value->civil_status : '' }}">
+                                    <input type="text" class="form-control" readonly="" value="{{ isset($value) ? $value->civil_status : '' }}">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="" class="col-sm-3 control-label">Address</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" readonly="" value="{{ isset($data) ? $value->user_address : '' }}">
+                                    <input type="text" class="form-control" readonly="" value="{{ isset($value) ? $value->user_address : '' }}">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="" class="col-sm-3 control-label">Street</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" readonly="" value="{{ isset($data) ? $value->user_street : '' }}">
+                                    <input type="text" class="form-control" readonly="" value="{{ isset($value) ? $value->user_street : '' }}">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="" class="col-sm-3 control-label">Barangay</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" readonly="" value="{{ isset($data) ? $value->brgy : '' }}">
+                                    <input type="text" class="form-control" readonly="" value="{{ isset($value) ? $value->brgy : '' }}">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="" class="col-sm-3 control-label">Phone Number</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" readonly="" value="{{ isset($data) ? $value->user_mobile_num : '' }}">
+                                    <input type="text" class="form-control" readonly="" value="{{ isset($value) ? $value->user_mobile_num : '' }}">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="" class="col-sm-3 control-label">Telephone Number</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" readonly="" value="{{ isset($data) ? $value->user_phone_num : '' }}">
+                                    <input type="text" class="form-control" readonly="" value="{{ isset($value) ? $value->user_phone_num : '' }}">
                                 </div>
                             </div>
                         </form>

@@ -55,7 +55,7 @@
                         <div class="col-md-12">
                             <div class="col-md-2 text-center">
                                 <div class="effect7" id="profile-container" style="width:200px;height:200px;">
-                                    @if($value->user_profile_pic != null || $value->user_profile_pic != "")
+                                    @if(isset($user) && $value->user_profile_pic != null)
                                     <img id="profileImage" src="{{ $base_url.'/public/images/'.$value->user_profile_pic }}" style="width:200px;height:200px;" />
                                     @else
                                     <img id="profileImage" src="{{ asset('public/dist/img/images.png') }}" style="width:200px;height:200px;" />
