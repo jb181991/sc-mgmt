@@ -222,18 +222,34 @@ class AdminController extends Controller
 
     public function getRecordsData()
     {
-        $records = DB::table('records')
-            ->where('status', 1)
-            ->select([
-                'id',
-                'fname',
-                'mname',
-                'lname',
-                'ename',
-                'birthdate',
-                'gender',
-                'unique_id_num'
-            ]);
+        if (Auth::user()->user_type != 1) {
+            $user_brgy = UserProfile::where('user_id', Auth::user()->id)->select('user_brgy')->pluck('user_brgy');
+            $records = DB::table('records')
+                ->where(['status' => 1, 'barangay' => $user_brgy[0]])
+                ->select([
+                    'id',
+                    'fname',
+                    'mname',
+                    'lname',
+                    'ename',
+                    'birthdate',
+                    'gender',
+                    'unique_id_num'
+                ]);
+        } else {
+            $records = DB::table('records')
+                ->where('status', 1)
+                ->select([
+                    'id',
+                    'fname',
+                    'mname',
+                    'lname',
+                    'ename',
+                    'birthdate',
+                    'gender',
+                    'unique_id_num'
+                ]);
+        }
 
         return Datatables::of($records)
             ->addColumn('fullname', function ($records) {
@@ -304,6 +320,7 @@ class AdminController extends Controller
 
     public function getSeniorContribution()
     {
+        $user_brgy = UserProfile::where('user_id', Auth::user()->id)->select('user_brgy')->pluck('user_brgy');
         $data['title'] = "Senior Citizen Contribution";
         $data['data'] = DB::table('contributions')
             ->join('records', 'contributions.senior_id', '=', 'records.id')
@@ -313,9 +330,9 @@ class AdminController extends Controller
                 contributions.created_at,
                 contributions.updated_at,
                 records.unique_id_num")
-            ->where('contributions.status', '=', 1)
+            ->where(['contributions.status' => 1, 'records.barangay' => $user_brgy[0]])
             ->get();
-        $data['records'] = Records::all();
+        $data['records'] = Records::where('barangay', $user_brgy[0])->get();
         $data['base_url'] = App::make("url")->to('/');
         $data['prof_pic'] = UserProfile::where('user_id', Auth::user()->id)->select('user_profile_pic')->pluck('user_profile_pic');
 
@@ -324,6 +341,7 @@ class AdminController extends Controller
 
     public function getSeniorPension()
     {
+        $user_brgy = UserProfile::where('user_id', Auth::user()->id)->select('user_brgy')->pluck('user_brgy');
         $data['title'] = "Senior Citizen Pension";
         $data['data'] = DB::table('pensions')
             ->join('records', 'pensions.senior_id', '=', 'records.id')
@@ -333,9 +351,9 @@ class AdminController extends Controller
                 pensions.created_at,
                 pensions.updated_at,
                 records.unique_id_num")
-            ->where('pensions.status', '=', 1)
+            ->where(['pensions.status' => 1, 'records.barangay' => $user_brgy[0]])
             ->get();
-        $data['records'] = Records::all();
+        $data['records'] = Records::where('barangay', $user_brgy[0])->get();
         $data['base_url'] = App::make("url")->to('/');
         $data['prof_pic'] = UserProfile::where('user_id', Auth::user()->id)->select('user_profile_pic')->pluck('user_profile_pic');
 

@@ -63,7 +63,10 @@
                             <td>{{ date('m/d/Y h:i a', strtotime($item->created_at)) }}</td>
                             <td>{{ date('m/d/Y h:i a', strtotime($item->updated_at)) }}</td>
                             <td>
-                                <a href="{{ App::make('url')->to('/admin-edit-user/'.$item->id) }}" id="btn-edit" class="btn btn-xs btn-success"><i class="fa fa-pencil"></i> </a>&nbsp;<a href="javascript:void(0);" id="btn-del" data-id="{{ $item->id }}" class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-trash"></i> </a>
+                                <a href="{{ App::make('url')->to('/admin-edit-user/'.$item->id) }}" id="btn-edit" class="btn btn-xs btn-success"><i class="fa fa-pencil"></i> </a>&nbsp;
+                                @if ($item->id != Auth::user()->id)
+                                <a href="javascript:void(0);" id="btn-del" data-id="{{ $item->id }}" class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-trash"></i> </a>
+                                @endif
                                 <a href="javascript:void(0);" id="btn-change" data-id="{{ $item->id }}" class="btn btn-xs btn-warning" title="Change Password"><i class="fa fa-key"></i> </a>
                             </td>
                         </tr>

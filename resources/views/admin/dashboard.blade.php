@@ -45,6 +45,7 @@
         </div> <!-- gender Report -->
 
         <div class="col-md-12">
+            @if (Auth::user()->user_type == 1)
             <!-- Default box -->
             <div class="box box-success">
                 <div class="box-header with-border">
@@ -64,6 +65,7 @@
                 <!-- /.box-body -->
             </div>
             <!-- /.box -->
+            @endif
         </div>
     </section>
     <!-- /.content -->

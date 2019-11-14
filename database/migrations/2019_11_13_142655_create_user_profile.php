@@ -23,8 +23,8 @@ class CreateUserProfile extends Migration
             $table->string('user_address');
             $table->string('user_street');
             $table->string('user_brgy');
-            $table->string('user_mobile_num');
-            $table->string('user_phone_num');
+            $table->string('user_mobile_num')->nullable()->default(null);
+            $table->string('user_phone_num')->nullable()->default(null);
             $table->timestamps();
         });
     }
