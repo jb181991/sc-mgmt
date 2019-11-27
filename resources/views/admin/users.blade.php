@@ -48,6 +48,7 @@
                             <th>Barangay</th>
                             <th>Name</th>
                             <th>Email</th>
+                            <th>User Type</th>
                             <th>Created At</th>
                             <th>Updated At</th>
                             <th>Action</th>
@@ -60,6 +61,7 @@
                             <td>{{ $item->brgy }}</td>
                             <td>{{ $item->name }}</td>
                             <td>{{ $item->email }}</td>
+                            <td>{{ $item->user_type == 1 ? 'Admin' : 'Normal User' }}</td>
                             <td>{{ date('m/d/Y h:i a', strtotime($item->created_at)) }}</td>
                             <td>{{ date('m/d/Y h:i a', strtotime($item->updated_at)) }}</td>
                             <td>

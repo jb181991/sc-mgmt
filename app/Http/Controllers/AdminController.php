@@ -367,7 +367,7 @@ class AdminController extends Controller
             ->join('user_profile', 'users.id', '=', 'user_profile.user_id')
             ->join('barangays', 'user_profile.user_brgy', '=', 'barangays.id')
             ->where('users.status', '=', 1)
-            ->selectRaw("users.id,users.name, users.email,users.created_at,users.updated_at,barangays.name as brgy")
+            ->selectRaw("users.id,users.name, users.email, users.user_type,users.created_at,users.updated_at,barangays.name as brgy")
             ->get();
         $data['base_url'] = App::make("url")->to('/');
         $data['prof_pic'] = UserProfile::where('user_id', Auth::user()->id)->select('user_profile_pic')->pluck('user_profile_pic');
@@ -526,6 +526,7 @@ class AdminController extends Controller
             $data = array(
                 'name' => ucwords($request->name),
                 'email' => $request->email,
+                'user_type' => $request->user_type,
                 'password' => Hash::make('password')
             );
 
@@ -548,7 +549,8 @@ class AdminController extends Controller
         } else {
             $data = array(
                 'name' => ucwords($request->name),
-                'email' => $request->email
+                'email' => $request->email,
+                'user_type' => $request->user_type,
             );
 
             $user_id = User::where('id', '=', $request->id)->update($data);

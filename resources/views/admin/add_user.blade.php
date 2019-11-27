@@ -112,6 +112,16 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>User Type <span style="color:red;">*</span></label>
+                                        <select name="user_type" id="user_type" class="form-control select2"  style="width: 100%;">
+                                            <option selected disabled>Select User Type</option>
+                                            <option value="1">Admin</option>
+                                            <option value="2">Normal User</option>
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-12">
